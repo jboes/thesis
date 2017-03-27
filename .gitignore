@@ -1,5 +1,4 @@
 *.eps
-images/*.pdf
 auto/
 *.lof
 *.lot

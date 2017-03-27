@@ -19,7 +19,7 @@
 #+BEGIN_SRC emacs-lisp :exports none
 (add-to-list 'org-latex-classes
              '("cmu-cheme-dissertation"
-               "\\documentclass[12pt]{cmuthesis}
+               "\\documentclass[12pt,oneside]{cmuthesis}
 \\usepackage[utf8]{inputenc}
 \\usepackage{lmodern}
 \\usepackage[T1]{fontenc}
@@ -39,13 +39,13 @@
 \\usepackage{url}
 \\usepackage{minted}
 \\usepackage{underscore}
-\\usepackage[linktocpage,oneside,pdfstartview=FitH,colorlinks,
+\\usepackage[linktocpage,pdfstartview=FitH,colorlinks,
              linkcolor=blue,anchorcolor=blue,
              citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \\usepackage{times}
 \\usepackage{fullpage}
 \\usepackage{titlesec}
-\\usepackage[letterpaper,twoside,bindingoffset=1in,
+\\usepackage[letterpaper,bindingoffset=1in,
             left=1in,right=1in,top=1in,bottom=1in]{geometry}
 \\usepackage[nottoc,numbib]{tocbibind}
 
@@ -64,7 +64,7 @@
 #+END_SRC
 
 #+RESULTS:
-| cmu-cheme-dissertation | \documentclass[12pt]{cmuthesis} |
+| cmu-cheme-dissertation | \documentclass[12pt,oneside]{cmuthesis} |
 
 \maketitle
 
@@ -109,8 +109,8 @@ In the future, all fields of science will follow the same progression as what ha
 As the accuracy of potentials increases, so too does their computational cost. Ideally, only the most accurate potentials would be utilized at all levels of theory. However, even with improved computational performance, only certain levels of theory are feasible depending on the level of sophistication required in the methods. This is the crux of multi-scale modeling, represented graphically in Figure ref:fig-multiscale.
 
 #+CAPTION: Diagram of multiscale modeling in the context of reaction simulation in catalysis. General catagories of time-scale are marked in red. Some of the methodologies utilized in this disseration are marked in black. \label{fig-multiscale}
-#+ATTR_LATEX: :placement [h] :width 5in
-#+ATTR_ORG: :width 500
+#+ATTR_LATEX: :placement [h] :width 5.5in
+#+ATTR_ORG: :width 550
 [[./images/fig-multiscale.png]]
 
 Each time scale in Figure ref:fig-multiscale represents a different set of methodologies used to adequately model the physics at each associated length scale. As engineers, we are ultimately only interested in the smallest possible scale that can be controlled experimentally. For most chemical operations, that is the macro-scale. Never the less, we are interested in the quantum-level chemistry because all higher-level methods stem from the underlying physics at the smallest time scales. Without a complete understanding of surface chemistry at the quantum level, there is little hope of intelligently designing the best possible catalysts for any given reaction from scratch. Based on this understanding, there is a need to help bridge the gap between time scales, which will allow for accurate representation of more complex chemistry. This improvement is particularly relevant to the study of transition metals alloys; difficult systems to study, due to the large number of potentially relevant configurations.
@@ -203,8 +203,8 @@ Alloy slab calculations were completed with $8 \times 8 \times 1$ /k/-point grid
 The measured adsorption ($\Delta E^{\ddagger}_{ads}$) and desorption ($\Delta E^{\ddagger}_{des}$) barriers are shown in Figure ref:fig:exp-ads over a large span of bulk compositions. Dissociative adsorption energies were calculated as $\Delta E^{H_{2}}_{ads} = \Delta E^{\ddagger}_{des} - \Delta E^{\ddagger}_{ads}$. We do not show measured values of $\Delta E^{\ddagger}_{des}$ at high $x$ ($> \; \approx 0.8$) because their experimental uncertainties are large. For the calculation of $\Delta E^{H_{2}}_{ads}$ throughout composition space, we use a linear fit of the $\Delta E^{\ddagger}_{des}$ values measured at low $x$. At high concentrations of Cu, $\Delta E^{H_{2}}_{ads}$ appears constant at approximately -0.3 eV (although the uncertainty here is large). As the amount of Pd in the alloy increases, $\Delta E^{H_{2}}_{ads}$ becomes increasingly negative, until $x \approx 0.6$, below which an increase in adsorption energy is observed.
 
 #+CAPTION: Experimental adsorption ($\Delta E^{\ddagger}_{ads}$) and desorption ($\Delta E^{\ddagger}_{des}$) barriers. Black triangles represent adsorption energies calculated as $\Delta E^{H_{2}}_{ads} = \Delta E^{\ddagger}_{des} - \Delta E^{\ddagger}_{ads}$, where $\Delta E^{\ddagger}_{des}$ values are based on the linear fit. \label{fig:exp-ads}
-#+ATTR_LATEX:  :placement [h]  :width 5in
-#+ATTR_ORG: :width 500
+#+ATTR_LATEX: :placement [h] :width 5.5in
+#+ATTR_ORG: :width 550
 [[./images/exp.png]]
 
 *** Selection of the active site basis set
@@ -213,8 +213,8 @@ Our strategy for computing an effective dissociative adsorption energy is to com
 On the surface of an alloy, it is not clear what defines an adsorption site. A minimal site would be three atoms defining the fcc hollow position. However, there are ligand effects from atoms not directly adjacent to the adsorbate that influence the reactivity of those atoms. These effects tend to decay quickly with distance cite:inoglu-2010-new-solid. We seek a balance between the minimal number of atoms in a site that captures the dominant trends in activity but that are still enumerable. The minimum number of atoms needed to characterize an fcc site is three. For the fcc(111) surface of a CuPd alloy, this results in the four active sites shown in Figure ref:fig-configs. Only four sites are considered since rotations of the two mixed composition sites are assumed to have identical adsorption energies.
 
 #+CAPTION: The four possible configurations of Cu (orange) and Pd (blue) atoms that can form fcc adsorption sites for hydrogen atoms. \label{fig-configs}
-#+ATTR_LATEX:  :placement [h]  :width 3in
-#+ATTR_ORG: :width 300
+#+ATTR_LATEX:  :placement [h]  :width 2.5in
+#+ATTR_ORG: :width 250
 [[./images/configs.png]]
 
 These sites must be embedded into an alloy slab for the adsorption energy to be calculated. It is not computationally feasible to model all possible slab compositions. Rather than attempt to mimic the alloy slab, we chose to embed these sites into pure Cu slabs and pure Pd slabs. This will mimic ligand effects on the embedded sites, and is likely to span the full range of these effects on the adsorption energies. Thus, we expect that this will provide bounds on the true adsorption energy for each site. This results in a total of eight unique slab compositions which were considered for the CuPd alloy portion of this chapter.
@@ -232,8 +232,8 @@ The lattice constant of many alloys is often a linear function of bulk compositi
 where \alpha is the alloy lattice constant, $a_{M}$ is the lattice constant of pure component metal $M$. We can readily verify this trend computationally using cluster expansion methods of the stable ground state configurations of the alloy cite:walle-2002-self-monte,walle-2002-autom. The resulting ground state configurations from a cluster expansion of the CuPd system are shown in Figure ref:fig-vegard. Additional details regarding cluster-expansion techniques can be found in Chapter [[#sec:ch3]]. The lattice constants of the ground state configurations vary linearly with alloy composition. This is in good agreement with Vegard's law. Thus, we use Equation eqref:eqn-alpha to determine the slab lattice constant for any given bulk composition.
 
 #+CAPTION: Lattice constants of the ground state fcc CuPd configurations plotted with Vegard's law as a function of bulk composition. \label{fig-vegard}
-#+ATTR_LATEX:  :placement [h]  :width 3in
-#+ATTR_ORG: :width 300
+#+ATTR_LATEX:  :placement [h]  :width 3.5in
+#+ATTR_ORG: :width 350
 [[./images/vegard.png]]
 
 We can now calculate the adsorption energy on each site in our basis set as a function of bulk composition by defining the lattice constant of the slab. For the eight unique slab configurations, dissociative adsorption energies ($\Delta E_{i}$) were calculated using Equation eqref:eqn-ads.
@@ -256,8 +256,8 @@ where $A_{i}$, $B_{i}$, and $C_{i}$ are the fitting parameters of the adsorption
 Figure ref:fig:ads-site shows the resulting $\Delta E_{i}$ calculated for each individual site embedded in a Cu slab and Pd slab as a function of lattice constant. The points were then fit using Equation eqref:eqn:poly-ads, resulting in the continuous functions shown as the solid and dashed lines.
 
 #+CAPTION: Adsorption energies for a H atom plotted against lattice constant and bulk composition. Solid lines represent models with Cu atoms in the sub-surface layers while dashed lines represent Pd sub-surface atoms. Each color represents one of the surface configurations shown in Figure ref:fig-configs. \label{fig:ads-site}
-#+ATTR_LATEX:  :placement [h]  :width 5in
-#+ATTR_ORG: :width 500
+#+ATTR_LATEX:  :placement [h]  :width 5.5in
+#+ATTR_ORG: :width 550
 [[./images/adsnrg.png]]
 
 Solid lines represent active sites embedded in a Cu slab, while dashed lines represent sites in Pd. There is a notable difference between the energies of the two data sets, with more favorable adsorption for sites embedded in Pd. This difference is characteristic of the ligand effects and puts some bounds on the possible variations with composition. This effect is typically small ($< \; 0.05$ eV) and results in a slight shift of adsorption energies across lattice constants, leaving the trends relatively unchanged. The results can be converted from a basis of lattice constant to bulk composition using Equation eqref:eqn-alpha which is represented in the secondary $x$-axis of Figure ref:fig:ads-site.
@@ -266,8 +266,8 @@ Solid lines represent active sites embedded in a Cu slab, while dashed lines rep
 To determine the effective adsorption energy, we need the active site distribution. The probability of finding each of the four active sites is determined by the surface composition and its ordering. The CuPd system forms a disordered fcc bulk alloy, so we assume that the surface is also randomly ordered. These distributions can also be determined computationally, using Monte Carlo techniques described in Chapter [[#sec:ch6]]. This means that the probability of finding a site is dictated by the composition of the site. Figure ref:fig-rnd shows this random distribution profile for the CuPd system as a function of surface composition. Similar statistical distributions have been calculated and compared to experimental observations for PdRu systems cite:hartmann-2009-surfac-pdru. For PdRu, an increased concentration of pure component metal active sites are observed over mixed component sites. Deviations from the distributions shown in Figure ref:fig-rnd are the result of short-range ordering on the surface. This short range ordering can also be accurately determined from simulation using the methods outlined in Chapter [[#sec:ch6]].
 
 #+CAPTION: The fraction of active sites present on the clean surface of a CuPd alloy assuming a perfectly random distribution of surface atoms. \label{fig-rnd}
-#+ATTR_LATEX:  :placement [h]  :width 3in
-#+ATTR_ORG: :width 300
+#+ATTR_LATEX:  :placement [h]  :width 3.5in
+#+ATTR_ORG: :width 350
 [[./images/rndprob.png]]
 
 These distributions are based on arbitrary /surface/ compositions and do not account for segregation effects. Since there are three possible configurations of the mixed composition sites, it becomes three times more likely to find them. Weighting the adsorption energies determined using Equation eqref:eqn:poly-ads, with the probabilities described above, results in the effective adsorption energy ($\Delta \widetilde{E}$) shown in Equation eqref:eqn-effective.
@@ -290,8 +290,8 @@ Segregation is a phenomena that reduces the surface free energy of alloys. In va
 Figure ref:fig:exp-seg shows the segregation profiles resulting from Equation eqref:eqn-LM at 800 and 900 K using the experimental segregation energies cite:priyadarshini-2011-high-throug. The data shown in this figure was collected using low energy ion scattering spectroscopy (LEISS) which samples only the top layer concentration of an alloy with a predetermined bulk composition. Figure ref:fig:exp-seg shows that under ultra-high vacuum conditions the concentration of Cu at the topmost layer of the CuPd alloy will always be greater than the concentration in the bulk. This segregation is shown to increase as temperature drops until it reaches $\approx 700$ K, below which the surface may not be at equilibrium with the bulk due to slow diffusion of metal atoms cite:miller-2008-surfac-segreg.
 
 #+CAPTION: Experimental surface segregation for CuPd alloy under ultra-high-vacuum conditions. Black dots represent experimental measurements of top surface layer concentrations at 900 K using LEISS. The dashed line shows the Gibbs isotherm fit to the experimental data at 900 K using the segregation energies found in Ref. citenum:priyadarshini-2011-high-throug. The solid line shows the Gibbs isotherm using the same segregation energies at 800 K. \label{fig:exp-seg}
-#+ATTR_LATEX:  :placement [h]  :width 3in
-#+ATTR_ORG: :width 300
+#+ATTR_LATEX:  :placement [h]  :width 3.5in
+#+ATTR_ORG: :width 350
 [[./images/segvac.png]]
 
 In the presence of adsorbates, however, a strong adsorption bond to a more reactive metal may lead to segregation reversal. Both the vacuum and adsorbate-induced segregation can be lumped into a total Gibbs free energy of segregation under reaction conditions (Equation eqref:eqn-balance) cite:kitchin-2008-alloy,miller-2008-effec-adsor. The relevant segregation driving force for adsorption induced segregation is the difference in adsorption energy between the pure component metals. If adsorption is more favorable at one metal than the other it provides a driving force for segregation. We approximate this driving force as the difference in adsorption energy on Cu(111) and Pd(111), times the coverage of adsorbates.
@@ -324,8 +324,8 @@ where $\theta_{i}$ is the hydrogen coverage contribution from site $i$, and $P_{
 Inserting Equation eqref:eqn-balance2 into Equation eqref:eqn-LM leads to a single equation with a single unknown: the surface composition. This function then depends only on the bulk composition, the reaction conditions, the adsorption energies on each site, and the site distribution. We assume the adsorption energies are independent of coverage. At higher coverages than 0.25 ML, the adsorption energies may increase (become less stable) by up to 0.05 - 0.1 eV depending on the metal. Figure ref:fig-seg shows the predicted surface composition under reaction conditions for the CuPd system which results from the solution to Equation eqref:eqn-balance2. The segregation profiles shown represent the adsorbate-induced surface composition of the alloy. We performed the analysis for sites embedded in a Cu slab (solid) and Pd slab (dashed). The difference between the two profiles places bounds on our estimates.
 
 #+CAPTION: Segregation profile of the CuPd system at 800 K and 1 atm of hydrogen. The solid line represents the predicted surface concentrations for active sites modeled on Cu sub-surface layers and the dashed line for Pd sub-surface layers. \label{fig-seg}
-#+ATTR_LATEX:  :placement [h]  :width 3in
-#+ATTR_ORG: :width 300
+#+ATTR_LATEX:  :placement [h]  :width 3.5in
+#+ATTR_ORG: :width 350
 [[./images/segtot.png]]
 
 Comparison of Figures ref:fig:exp-seg and ref:fig-seg clearly indicates that the surface composition under reaction conditions is markedly different than in vacuum. This is a result of preferential bonding between hydrogen and adsorption site configurations which contain high concentrations of Pd, resulting in a substantial increase of Pd at the surface /under reaction conditions/.
@@ -333,8 +333,8 @@ Comparison of Figures ref:fig:exp-seg and ref:fig-seg clearly indicates that the
 The effective hydrogen adsorption energies that are consistent with segregation for the CuPd systems and a comparison to the experimental results are included in Figure ref:fig-results. The solid blue line represents the effective adsorption energies predicted for the four surface configurations embedded in a Cu slab and the dashed line for the sites embedded in a Pd slab. Both sets of data show similar trends, with weaker adsorption energies on Cu-rich surfaces than on Pd-rich surfaces. The sites embedded in the Pd slab are more consistent with the experimental results, indicating that Pd-ligand effects are probably significant in determining the actual site reactivities.
 
 #+CAPTION: Effective hydrogen adsorption energies on Cu_{$x$}Pd_{1-$x$} alloys modeled using adsorption site configurations embedded in bulk Cu (solid line) and Pd (dashed line) as a function of bulk alloy composition for an fcc(111) surface. The dotted black line represents a linear trend between adsorption energies of pure component metals. Black triangles represent experimental data shown in Figure ref:fig:exp-ads with corresponding experimental uncertainty. The experimentally determined adsorption energies for the \alpha- and \beta-Pd hydride phases are also shown in red. label:fig-results
-#+ATTR_LATEX:  :placement [h]  :width 5in
-#+ATTR_ORG: :width 500
+#+ATTR_LATEX:  :placement [h]  :width 5.5in
+#+ATTR_ORG: :width 550
 [[./images/results.png]]
 
 The dotted black line represents the linear average between the adsorption energies of the pure component metals. From Figure ref:fig-results it can be seen that the experimental data is not well characterized by the adsorption energy of a single active site (a horizontal line) or the linear interpolation between the adsorption energy of the pure component metals. This is characteristic of segregation effects on the surface of the alloy, resulting in more favorable active sites at the surface under reaction conditions. This is supported by the fact that the effective adsorption calculated without segregation effects does not accurately predict the experimental adsorption trend either. Effective adsorption energy predictions without segregation effects can be found in the SI file of the published work cite:boes-2015-estim-bulk.
@@ -448,16 +448,16 @@ Figure ref:fig-reax-train shows the error distribution of residual error between
 
 #+label: fig-reax-train
 #+caption: Energy residual error to the training set data broken down by bulk, surface, and cluster geometries for the ReaxFF potential.
-#+attr_latex: :width 5in :placement [h]
-#+attr_org: :width 500
+#+attr_latex: :width 5.5in :placement [h]
+#+attr_org: :width 550
 [[./images/fig-reax-train.png]]
 
 A predefined validation set consisting of 238 calculations (out of the total 9,972 DFT calculations) was set aside to test the transferability of predictions from our ReaxFF and NN potentials. This validation set was chosen to represent a variety of different Au structure types which are represented in the results section of this work. By reporting probability distributions for both the training and validation sets, we can determine the degree that our potentials show selection bias. For an ideal fitting procedure, the probability distributions for both the training and validation set would match, and any differences between the two would signify an over- or under-sampling. Figure ref:fig-reax-valid shows the residual error for the validation calculations labeled by geometry type. Significant deviations were found in bulk and cluster calculations from the validation and training set data.
 
 #+label: fig-reax-valid
 #+caption: Energy residual error to validation set data broken down by bulk, surface, and clusters for the ReaxFF potential.
-#+attr_latex: :width 5in :placement [h]
-#+attr_org: :width 500
+#+attr_latex: :width 5.5in :placement [h]
+#+attr_org: :width 550
 [[./images/fig-reax-valid.png]]
 
 *** Neural Network
@@ -467,16 +467,16 @@ Of the 9,972 total calculations, 9,734 were used for training the NN potential. 
 
 #+label: fig-neural-train
 #+caption: Energy residual error to the training dataset of the NN calculations. A RMSE of 0.017 eV/atom is calculated for the 9,734 structures included in the training set. The training set is also well described by a normal distribution.
-#+attr_latex: :width 5in :placement [h]
-#+attr_org: :width 500
+#+attr_latex: :width 5.5in :placement [h]
+#+attr_org: :width 550
 [[./images/fig-neural-train.png]]
 
 Figure ref:fig-neural-valid shows the error distribution for the validation dataset. Overfitting can be identified by a divergence between the RMSE of the training set and validation set data. In this case, the distribution is clearly not normal and arises from some underrepresented data in the training set, notably the fcc(100) terrace and dimer diffusion pathways (discussed below).
 
 #+label: fig-neural-valid
 #+caption: Energy residual error to the validation dataset of NN calculations. $\sigma$ = 0.21, similar to the training set RMSE indicating little to no overfitting has occurred. The cluster of overpredicted surface calculations are from fcc(100) surface diffusion pathways, which are poorly represented in the training set.
-#+attr_latex: :width 5in :placement [h]
-#+attr_org: :width 500
+#+attr_latex: :width 5.5in :placement [h]
+#+attr_org: :width 550
 [[./images/fig-neural-valid.png]]
 
 ** Results and Discussion
@@ -488,8 +488,8 @@ EOS data for face centered cubic, simple cubic, and diamond structures are shown
 
 #+label: fig-bulk-eos
 #+caption: Comparison of EOS fits to KS-DFT, ReaxFF, and NN training and validation set data. Fits only include data within atomic volumes of \pm 15 \AA/atom as this is the region of interest for most applications.
-#+attr_latex: :width 5in :placement [h]
-#+attr_org: :width 500
+#+attr_latex: :width 5.5in :placement [h]
+#+attr_org: :width 550
 [[./images/fig-bulk-eos.png]]
 
 Figure ref:fig-bulk-eos shows that the EOSs are very well represented by our NN potential. Validation set data are also well behaved, indicating that overfitting has not occurred. Metric data shown in Table ref:tbl-eos shows excellent agreement in the minimum volume, minimum energy, and bulk modulus found using DFT results. Data for the hcp and bcc structures shown in the SI of the published work are reproduced similarly well cite:boes-2016-neural-networ.
@@ -528,16 +528,16 @@ The residual errors for structures with concentrations below 0.04 vacancies/atom
 
 #+label: fig-vacancy-formation
 #+caption: Bulk vacancy formation energies for fcc Au at various concentrations. NN fits to vacancy structures are systematically overpredicted by $\approx$ 0.4 eV, while ReaxFF fits are systematically underpredicted by $\approx$ 0.3 eV. Literature values are from Ref. citenum:xing-2014-vacan-format.
-#+attr_latex: :width 5in :placement [h]
-#+attr_org: :width 500
+#+attr_latex: :width 5.5in :placement [h]
+#+attr_org: :width 550
 [[./images/fig-vacancy-formation.png]]
 
 Figure ref:fig-vacancy-diffusion shows the calculated bulk vacancy diffusion barrier using a vacancy concentration of $\approx$ 0.037 vacancies/atom (obtained from Figure ref:fig-vacancy-formation). NEB calculations determined points along the minimum energy pathway that were then fit to a cubic spline. For diffusion calculations, the residual errors of both the NN and ReaxFF potentials are lower by about an order of magnitude as compared to the vacancy formation energy. This is due to error cancellation from the reference states that are similar to states along each reaction pathway. The NN potential overestimates this barrier by 0.04 eV while the ReaxFF potential underestimates the barrier by 0.05 eV.
 
 #+label: fig-vacancy-diffusion
 #+caption: NEB predicted barrier for bulk vacancy diffusion through fcc Au. Transitions state energy (black, 0.56 eV) is overpredicted by the NN (red, 0.60 eV) and underpredicted by the ReaxFF (blue, 0.50).
-#+attr_latex: :width 5in :placement [h]
-#+attr_org: :width 500
+#+attr_latex: :width 5.5in :placement [h]
+#+attr_org: :width 550
 [[./images/fig-vacancy-diffusion.png]]
 
 *** Surface calculations
@@ -548,8 +548,8 @@ Figure ref:fig-full-diffusion contains recreations from Figure 2 (a & b) in Ref.
 
 #+label: fig-full-diffusion
 #+caption: Residuals to diffusion pathways in the validation set. Structures are reproduced from those used in Ref. citenum:keith-2010-react-forcef.
-#+attr_latex: :width 5in :placement [h]
-#+attr_org: :width 500
+#+attr_latex: :width 5.5in :placement [h]
+#+attr_org: :width 550
 [[./images/fig-full-diffusion.png]]
 
 To assess the performance of these potentials under a wide range of adatom diffusions, Figure ref:fig-barrier-residuals shows the residuals for all 144 fcc(100) surface diffusion calculations. Solid shapes represent training set data and hollow shapes represent validation set data. Residuals are the same as those shown in Figure ref:fig-full-diffusion. Our ReaxFF potential (which has roughly 1/3 of its training set devoted to surface calculations) has 86.1% of these structures falling within a \pm 0.1 eV tolerance of error. For the NN potential (with roughly 1/10 of its training set devoted to surface calculations), has 52.1% of these structures fall within a \pm 0.1 eV tolerance of error.
@@ -558,8 +558,8 @@ Many of the calculations from the NN potential are underestimated compared to th
 
 #+label: fig-barrier-residuals
 #+caption: Residuals of 144 fcc(100) surface diffusion pathway calculations included from Ref. citenum:keith-2010-react-forcef. Hollow markers represent residuals from the validation set which are shown in Figure ref:fig-full-diffusion.
-#+attr_latex: :width 5in :placement [h]
-#+attr_org: :width 500
+#+attr_latex: :width 5.5in :placement [h]
+#+attr_org: :width 550
 [[./images/fig-barrier-residuals.png]]
 
 **** fcc(111) surface slipping barrier
@@ -567,8 +567,8 @@ A slipping barrier is the minimum energy pathway required for a certain number o
 
 #+label: fig-111-slipping
 #+caption: NEB predicted slipping barrier for a single layer of fcc(111). Initial, bridge, and top positions are shown for visual reference. The second local minima is representative of the hcp site. The darkest gray represents the deepest layer, while the lightest shade is the top layer.
-#+attr_latex: :width 5in :placement [h]
-#+attr_org: :width 500
+#+attr_latex: :width 5.5in :placement [h]
+#+attr_org: :width 550
 [[./images/fig-111-slipping.png]]
 *** Cluster predictions
 **** 6 atom clusters
@@ -580,8 +580,8 @@ The 2,000 structures generated from the BO-MD run with our NN potential were the
 
 #+label: fig-6atom-md
 #+caption: NVT BO-MD simulation of 6 atom cluster starting from local energy minimum and finding the global minimum. The temperature was reduced from 800 K to 300 K over the course of the simulation. Solid lines show BO-MD trajectories while dashed lines show energy predictions for the global minima from KS-DFT (black) and NN (red) and ReaxFF (blue).
-#+attr_latex: :width 5in :placement [h]
-#+attr_org: :width 500
+#+attr_latex: :width 5.5in :placement [h]
+#+attr_org: :width 550
 [[./images/fig-6atom-md.png]]
 
 **** 38 atom clusters
@@ -593,8 +593,8 @@ Residual errors for the ReaxFF potential are consistently lower by -0.11 eV/atom
 
 #+label: fig-38atom-minima
 #+caption: Local minima for 38 atom Au cluster predicted from the NN (red) and compared with KS-DFT (black) and ReaxFF (blue). The ReaxFF potential energies are offset by +0.11 eV/atom in the top figure to better depict the trend in energies.
-#+attr_latex: :width 5in :placement [h]
-#+attr_org: :width 500
+#+attr_latex: :width 5.5in :placement [h]
+#+attr_org: :width 550
 [[./images/fig-38atom-minima.png]]
 
 *** Computational cost
@@ -636,8 +636,8 @@ Of the overall data generated for this work 10% was left out of the training pro
 
 #+caption: Residual errors for the energies predicted from the NN compared to DFT calculated energies. Black indicates the distribution of structures included in the training set. Red indicates the 10% of randomly selected structures reserved for validation. The total of all validation and training points sums to 100%.
 #+label: fig-residuals
-#+attr_org: :width 300
-#+attr_latex: :width 3in
+#+attr_org: :width 350
+#+attr_latex: :width 3.5in
 [[./images/distribution.png]]
 
 ** Results and Discussion
@@ -669,19 +669,19 @@ The lack of fluctuation in the NN predictions after four layer slabs is likely a
 #+caption: DFT and NN predictions of various properties of pure Pd. All literature references come from Ref. citenum:tran-2007-perfor-molec.
 #+attr_latex: :placement [h]
 #+tblname: tbl-properties
-| Parameter                                     |   DFT |    NN | Computational lit. | Experimental |
-|-----------------------------------------------+-------+-------+--------------------+--------------|
-| Minimum bulk fcc energy, $E_{bulk}$ (eV/atom) | -5.32 | -5.35 |                    |              |
-| Lattice constant, \alpha (\AA)                | 3.939 | 3.939 |              3.948 |        3.881 |
-| Bulk modulus, \beta (GPa)                     |   175 |   173 |                170 |          195 |
-| Surface energy, \sigma (eV/site)              |  0.56 |  0.56 |               0.59 |         0.84 |
+| Parameter                                       |   DFT |    NN | Computational lit. | Experimental |
+|-------------------------------------------------+-------+-------+--------------------+--------------|
+| Minimum bulk fcc energy\n, $E_{bulk}$ (eV/atom) | -5.32 | -5.35 |                    |              |
+| Lattice constant, \alpha (\AA)                  | 3.939 | 3.939 |              3.948 |        3.881 |
+| Bulk modulus, \beta (GPa)                       |   175 |   173 |                170 |          195 |
+| Surface energy, \sigma (eV/site)                |  0.56 |  0.56 |               0.59 |         0.84 |
 
 To perform NEB calculations, a detailed PES is required. These can be very time consuming to obtain using DFT alone since many consecutive calculations can be required, especially without a good initial guess. The NN is considerably more cost-effective than DFT, so we start by performing a very simple NEB calculation of the slipping barrier of 1 and 2 layers of Pd using the NN cite:boes-2016-neural-networ. Full relaxations of a 1 \times 1 \times 4 Pd slab were first performed for an A-B-C-A and C-B-C-A (C-A-C-A for double-layer slipping barrier) configuration using only the NN. These configurations correspond to the fcc and hcp configurations of the subsequent layers. Then, a NEB was performed over the bridge site and top site as shown in Figure ref:fig-Pd-slipping-NEB. After completing the NEB calculations, single-point DFT calculations were performed on each NEB image for validation.
 
 #+caption: NN predicted NEB trajectory for the slipping barrier of a single layer and the top two layers of a Pd slab shown in red. DFT validated single-point calculations are shown in black. For the single layer, fcc indicates an A-B-C-A configuration while hcp indicates a C-B-C-A configuration. For the double layer transition, hcp indicates a C-A-C-A configuration of the layers.
 #+label: fig-Pd-slipping-NEB
-#+attr_org: :width 500
-#+attr_latex: :width 5in
+#+attr_org: :width 550
+#+attr_latex: :width 5.5in
 [[./images/Pd-slipping-NEB.png]]
 
 All slipping barrier predictions in Figure ref:fig-Pd-slipping-NEB are made in reference to the fcc configuration as predicted by each individual method. The fcc configuration and the immediate region of the PES around it are well predicted by the NN, over-predicting compared to DFT for the same configuration by 8 meV/site. In comparison to the DFT-predicted minimum energy structure there is only a 4 meV/site difference, indicating that the NN predicted minimum is very similar in structure as well. The NN under-predicts the ground state energy for the hcp configurations by 0.04 and 0.08 eV/site for the single-layer and double-layer slipping barrier positions, respectively. The NN predicted ground state configurations differ by 0.02 and 0.01 eV/site from the DFT predicted ground state configurations. This is an indication that the NNs prediction of the A-C-A-C ground state configuration are about as accurate as that of C-B-C-A. However, the energies associated with the A-C-A-C configuration are about half as accurate.
@@ -695,8 +695,8 @@ Figure ref:fig-PdO-thermo-coverage shows that there is an error of about 0.05 eV
 
 #+caption: Adsorption energy of oxygen onto the surface of a 3 \times 3 Pd slab at various coverages. On the left are the DFT calculations of the coverages (black hollow) with comparative NN predictions (red). On the right, the residual errors are shown (gray). Reconstructed structures are defined as having an average difference in the position of all atoms greater than 0.5 \AA. NN predictions of reconstructed structures are not shown.
 #+label: fig-PdO-thermo-coverage
-#+attr_org: :width 500
-#+attr_latex: :width 5in
+#+attr_org: :width 550
+#+attr_latex: :width 5.5in
 [[./images/coverage-dependance.png]]
 
 At higher coverages, surface reconfigurations become increasingly common. One especially strong reconstruction is observed at 2/3 coverage. As shown in Figure ref:fig-PdO-thermo-coverage, two rows of oxygen on the fcc sites pull a row of Pd out of the surface, dramatically reducing the energy of the system. A similar reconstruction is observed with a single row of oxygen, but the effect on the energy of the system is not as significant. In previous work, a carbon-induced reconstruction of the Pd(111) surface was also observed at higher C coverages cite:kitchin-2009-correl-cover. This C reconstruction is observed on similarly sized unit cell. These reconstructions are unit cell size depended since they are not observed on 2 \times 2 surfaces. Larger unit cells may also produce other reconstruction configurations not seen in this work. Reconstructions are also observed in MD simulations at 1/3 coverage or higher. This is consistent with previous work which shows that the Pd surface is readily oxidized at coverages above 0.5 ML cite:lundgren-2002-two-dimen,todorova-2004-oxygen-overl.
@@ -706,8 +706,8 @@ parameters ($\mu_{O_{2}}$ = 0.75 eV at 600 K). Since the NN (as currently implem
 
 #+caption: Grand-canonical MC simulation of oxygen adsorption a 10 \times 10 Pd(111) surface. The simulation was run for oxygen binding on fcc sites. MC was performed with a $\mu_{O_{2}}$ of 0.75 eV at 600 K.
 #+label: fig-PdO-MC
-#+attr_org: :width 500
-#+attr_latex: :width 5in
+#+attr_org: :width 550
+#+attr_latex: :width 5.5in
 [[./images/Pd-MC.png]]
 
 
@@ -718,7 +718,6 @@ The mean fcc coverage is estimated to be 0.50 \pm 0.05 ML. This is 0.13 ML great
 #+attr_org: :width 300
 #+attr_latex: :width 3in
 [[./images/formation-energy.png]]
-
 
 The point at zero coverage is representative of the surface formation energy given in Table ref:tbl-properties, which was shown to be in good agreement with the NN and previous work. However, the formation energies are \approx 0.1 eV/site lower at mid-range coverages and over 0.2 eV lower at 1 ML than the corresponding results from Ref citenum:frey-2014-implic-cover. Formation energies also drop below zero at \approx 0.45 ML. Figure ref:fig-formation-energy also ignores reconfigured structures which are predicted to become more stable at coverages above 0.5 ML in this work. This will result in higher coverages from the NN since it is trained to DFT results which predict increased stability at higher coverages. This trend is also highly influenced by the oxygen reference energy used $E_{O_{2}}$. Part of this increased favorability is counteracted by the NNs tendency to over-predict adsorption onto the fcc site, but this increase is small in comparison.
 
@@ -733,8 +732,8 @@ The reaction barriers for oxygen diffusion in the dilute limit are important for
 
 #+caption: NN predicted NEB trajectory for one oxygen across the bridge and top sites of the Pd(111) surface. Barrier energies are taken relative to the energy of the fcc adsorption site.
 #+label: fig-PdO1-NEB
-#+attr_org: :width 500
-#+attr_latex: :width 5in
+#+attr_org: :width 550
+#+attr_latex: :width 5.5in
 [[./images/PdO1-NEB.png]]
 
 The NN predicts a reaction barrier of 0.40 eV over the bridge site, while DFT predicts a barrier of 0.56 eV. Both results are in good agreement with experimental results of 0.4-0.5 eV cite:rose-2004-chemis-atomic. Computational results at 1 ML coverage predict a barrier of 0.37 eV cite:markovits-2008-move-stron. DFT validation of the relative fcc and top site energies agree very well, hcp site is under-predicted by 0.17 eV. The NN also predicts an energy difference between the fcc and hcp sites of 0.07 eV (0.18 eV for DFT) which also compares reasonably well with previous computational results of 0.17 eV at 0.33 ML coverage cite:honkala-2001-ab-initio. When compared to the DFT relaxation predictions in Figure ref:fig-PdO-thermo-coverage, the NN seems to accurately predict geometries that represent the energy minima as predicted by DFT. Although the reaction barrier over the bridge site is not as well predicted, the trends are consistent across the entire pathway, lending stability to the model.
@@ -743,8 +742,8 @@ We have also performed NEB calculations for select two oxygen atoms on the 3 \ti
 
 #+caption: NEB trajectory for 2 oxygens across select sites of the 3 \times 3 Pd(111) surface. Barrier energies are taken relative to the energy of the fcc adsorption site.
 #+label: fig-PdO2-NEB
-#+attr_org: :width 500
-#+attr_latex: :width 5in
+#+attr_org: :width 550
+#+attr_latex: :width 5.5in
 [[./images/PdO2-NEB.png]]
 
 From the 4th to 3rd nearest-neighbor position, the minimum energy pathway predicted by DFT looks nearly identical with only slight increase in the energy. However, the NN over-predicts the DFT energy more than was observed with the single atom diffusion. This trend of over-prediction holds from the 3rd to 2nd nearest-neighbor site as well. Both DFT and the NN predict the 2nd nearest-neighbor site to be less stable than the 4th by \approx 0.14 eV. These results indicate a potential decrease in the reaction barrier of oxygen diffusion across the surface at mid-range coverages. As the second oxygen moves to the adjacent hcp site, a sharp increase in the energy is observed. The NN also under-predicts the DFT validation at this high coverage, which may also help explain the higher coverages predicted by the MC simulation. It can be seen in the diagram for the 1st nearest-neighbor site that both atoms are highly strained. This leads to the negligible diffusion barrier of oxygen from the 1st nearest-neighbor site to the 2nd nearest-neighbor.
@@ -753,8 +752,8 @@ We performed a MD simulation with the NN on a system sufficiently small that we 
 
 #+caption: MD trajectories for one, two and three atoms moving across the surface of a 3 \times 3 Pd(111). Residual errors for each simulation are shown below (gray).
 #+label: fig-PdO-MD
-#+attr_org: :width 500
-#+attr_latex: :width 5in
+#+attr_org: :width 550
+#+attr_latex: :width 5.5in
 [[./images/PdO-MD.png]]
 For 0.11 ML, the NN performs very well over 2000 steps. No major distortion of the surface occurs. The oxygen only has enough energy to move from the fcc hollow to the hcp hollow. The initial condition has the greatest error while the rest of the trajectory is very well predicted. Occasionally, the top layer will shift into the C-B-C-A configuration, however this is likely a result of the under-prediction of the C-B-C-A configurations relative energy by the NN as discussed above. This shift of the layer is associated with a residual error decrease (/i.e./ NN under-prediction) of \approx 0.05 eV/site.
 
@@ -807,7 +806,7 @@ In total, 3,914 images were included in the complete dataset used for training a
 #+label: fig-distribution
 #+attr_org: :width 300
 #+attr_latex: :width 3in :placement [h]
-[[./images/distribution.png]]
+[[./images/distribution-AuPd.png]]
 
 *** Monte Carlo
 All MC simulations were performed using a canonical ensemble. The unit cells used were 10 \times 10 \times 15 slabs at varying compositions of Au and Pd. At each step of the simulation an atom of the slab was chosen pseudo-randomly and a swap with a nearest-neighbor was considered.  The change in energy for the swap was calculated by the NN and if the change is negative the swap was accepted. If the change was positive it was accepted with the usual Boltzmann probability. Relaxation energy was not considered. Discussion of the effect of non-relaxed geometries is included in the results section. The code used to perform the MC simulations is included in the SI file of the published work cite:boes-2017-model-segreg.
@@ -835,8 +834,8 @@ To predict the extent of Au segregation to the surface, multiple MC simulations 
 
 #+caption: Canonical MC of 10 \times 10 \times 15 unit cell of 50:50 AuPd over 20,000 successful iterations at 800 K. Averages of the 1^{st}, 2^{nd}, and 3^{rd} layers of each side of the slab are shown.
 #+label: fig-AuPd-MC
-#+attr_org: :width 500
-#+attr_latex: :width 5in
+#+attr_org: :width 550
+#+attr_latex: :width 5.5in
 [[./images/AuPd-MC.png]]
 
 In all 36 cases, Au segregation to the top-most surface layer is predicted. This is consistent with the experimentally measured surface energy of Au (1.626 J/m^{2}) being lower than that of Pd (2.043 J/m^{2}) cite:mezey-1982-surfac-free, and with Au being the larger atom. For all bulk compositions the 2^{nd} layer is observed to be Pd enriched, while the 3^{rd} layer is always similar to the bulk composition. The black dashed lines in Figure ref:fig-AuPd-MC depict \pm 1 standard deviation around the mean surface composition.
@@ -845,8 +844,8 @@ This type of decaying oscillation of composition with layer depth is characteris
 
 #+caption: Segregation profile of computational results (red) at 800 K as compared to previous experimental work. Experimental studies are performed using LEIS from C.-W. Yi /et al./ (Ref. citenum:yi-2005-compos-struc, black circles) at 800 K and D.G. Swartzfager /et al./ (Ref. citenum:swartzfager-1981-differ-sputt, black sqares) at 875 K.
 #+label: fig-AuPd-segregation
-#+attr_org: :width 500
-#+attr_latex: :width 5in :placement [h]
+#+attr_org: :width 550
+#+attr_latex: :width 5.5in :placement [h]
 [[./images/AuPd-segregation.png]]
 
 Experimental segregation energies from C.-W. Yi /et al./ (Ref. citenum:yi-2005-compos-struc) are measured at 800 K while those by D.G. Swartzfager /et al./ (Ref. citenum:swartzfager-1981-differ-sputt) are measured at 875 K. The computational segregation profile shown is for 800 K. Based on experimental temperature dependence studies, the segregation profile is not expected to change significantly from 800 to 875 K. In particular, an \approx 1% reduction in composition is measured from 800 to 900 K at 50:50 AuPd bulk composition cite:yi-2005-compos-struc. Thus, deviations between the two sets of experimental results are qualitatively descriptive of the experimental reproducibility. Based on visual comparison, the computational results agree extremely well with the experiments. At Au bulk fractions lower than 0.6 the computational results are bounded by the expected experimental uncertainty. At bulk compositions greater than 0.6, the computational results only slightly over-predict the experimental results.
@@ -861,8 +860,8 @@ The Langmuir-McLean Gibbs-isotherm model (Equation ref:eq-gibbs) is used to anal
 
 #+caption: Enthalpy (blue) contributions to the Langmuir-McLean fitted segregation profile. Mean values fit to temperature dependent MC data are shown as solid dots. The shaded regions represent a single standard deviation which incorporates fitting error and uncertainty from the MC mean surface compositions. Best fits to the data are shown as dashed lines. Dilute limit segregation energies with lattice constants fixed at the correponding bulk Au fractions are shown in red.
 #+label: fig-temp-langmuir-mclean
-#+attr_org: :width 500
-#+attr_latex: :width 5in :placement [h]
+#+attr_org: :width 550
+#+attr_latex: :width 5.5in :placement [h]
 [[./images/temp-langmuir-mclean.png]]
 
 In Figure ref:fig-temp-langmuir-mclean, the fitted enthalpies are shown in blue. The shaded regions represent one standard deviation of uncertainty to the mean fitted values. The uncertainty shown includes contributions from both the fitting error as well as the standard deviation of the mean surface composition resultant from the MC simulations. As can be seen from Figure ref:fig-AuPd-segregation, the standard deviation of the MC-predicted surface composition is highest in the region of $x$ \leq 0.6. Despite these larger standard deviations, the majority of the uncertainty seen in Figure ref:fig-temp-langmuir-mclean is the result of the fitting uncertainty. This is a product of the fact that the Langmuir-McLean predictions are highly sensitive to variance in the surface composition at high Au fractions.
@@ -877,8 +876,8 @@ Taking the uncertainties into consideration as weights, we have produced a 3^{rd
 
 #+caption: Langmuir-McLean fits to the computational segregation profile for AuPd. The computational results (red circles), C.-W. Yi /et al./ (Ref. citenum:yi-2005-compos-struc), and D.G. Swartzfager /et al./ (Ref. citenum:swartzfager-1981-differ-sputt) experimental results are shown from left to right.
 #+label: fig-fit-prediction
-#+attr_org: :width 500
-#+attr_latex: :width 5in :placement [h]
+#+attr_org: :width 550
+#+attr_latex: :width 5.5in :placement [h]
 [[./images/fit-prediction.png]]
 
 The computational results (red circles), C.-W. Yi /et al./ (Ref. citenum:yi-2005-compos-struc), and D.G. Swartzfager /et al./ (Ref. citenum:swartzfager-1981-differ-sputt) experimental results are shown from left to right. Fits to the segregation profile show good experimental agreement at 875 K, with a maximum over-prediction of about 0.04 Au fraction, consistent with the computational results. The first data set is also fairly well represented with a maximum under-prediction of about 0.07 Au fraction. The data from C.-W. Yi /et al./ can be more accurately captured with a constant -11 kJ/mol enthalpy of segregation, however this results in substantially poorer fits to the Swartzfager /et al./ data. This inability for one model to capture the aspects of both experimental results is not entirely unexpected. This is most likely explained by the fact that all experimental results shown are performed on polycrystalline surfaces.
@@ -920,8 +919,8 @@ In this equation, $S_{i}$ is the occupation variable, for central atom $i$, of +
 
 #+caption: Warren-Cowley short-range order parameters for 1^{st}, 2^{nd}, and 3^{rd} nearest-neighbors as a function of surface Au fraction at 800 K are shown on the right. On the left, mean $\alpha$ parameters are shown as a function of nearest-neighbor distance ($r$) for all temperatures.
 #+label: fig-warren-cowley
-#+attr_org: :width 500
-#+attr_latex: :width 5in :placement [h]
+#+attr_org: :width 550
+#+attr_latex: :width 5.5in :placement [h]
 [[./images/warren-cowley.png]]
 
 On the right of Figure ref:fig-warren-cowley, the trends for SRO are shown as a function of surface composition for 1^{st}, 2^{nd}, and 3^{rd} nearest-neighbors at 800 K. The negative $\alpha$ at 1^{st} nearest-neighbor distances indicates favorable heterogeneous interaction. The composition of the second nearest-neighbors tends to be identical to the central atom. This is also indicative of favorable heterogeneous interaction at short distances since the second nearest-neighbors are adjacent to the 1st nearest-neighbors, already identified as heterogeneously enriched. By third nearest-neighbor distance no discernible ordering effects are observed indicating no long-range interactions were observed. These findings are consistent with previous experimental and computational result giving $\alpha(r)$ \approx -0.14, 0.04, and 0.01 for 1^{st}, 2^{nd}, and 3^{rd} nearest-neighbor distances at $y$ = 0.39  cite:sadigh-1999-short-range. SRO effects are also predicted to rapidly diminish at $y$ \textgreater 0.8. This is a product of the fact that Equation ref:eq-warren-cowley converges to zero as the surface composition approaches either pure composition.
@@ -937,8 +936,8 @@ Using this fixed basis, we use EMT to enumerate all of the unique configurations
 
 #+caption: DFT energies of the symmetrically unique 2 \times 2 \times 5 slab of AuPd. Only the top two layers are allowed to vary in composition. Single point calculations (blue) are reflective of NN predictions, while relaxed energies (red) are those of fully converged DFT calculations. Differences between the two are shown in black.
 #+label: fig-DFT-segregation
-#+attr_org: :width 500
-#+attr_latex: :width 5in :placement [h]
+#+attr_org: :width 550
+#+attr_latex: :width 5.5in :placement [h]
 [[./images/DFT-segregation.png]]
 
 The general trend in segregation for the unrelaxed lattice calculations reflects what is seen in the MC results predicted from the NN. Pure Au compositions of the top layer are most energetically favorable. Based on second layer compositions, the static calculations predict a more even distribution of possible stable compositions centered around $x$ = 0.5. Compared to the relaxed calculations, these trends are mostly conserved. The biggest differences are observed in the stable configurations of the second layer compositions slightly shifting towards higher Au bulk fractions. This is also reflected in the energy differences. Most of the relaxation energies are very small in magnitude compared to the relative energy differences between compositions of the first layer. Furthermore, the relaxation energies are also very uniform, especially close to the bulk composition of the system.
