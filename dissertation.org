@@ -24,6 +24,7 @@
 \\usepackage{lmodern}
 \\usepackage[T1]{fontenc}
 \\usepackage{graphicx}
+\\usepackage{fixltx2e}
 \\usepackage{longtable}
 \\usepackage{float}
 \\usepackage{wrapfig}
@@ -89,8 +90,8 @@ I write this dissertation in recognition of all of the educators who devoted the
 Special thanks to my thesis committee for participating in the dissertation process: \\
 John Kitchin, Chair \\
 Andrew Gellman \\
-Mike Widom \\
-Erik Yidste
+Michael Widom \\
+Erik Ydstie
 \end{acknowledgments}
 
 \tableofcontents
